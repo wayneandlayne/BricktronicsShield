@@ -7,5 +7,8 @@ To download. click the "Download ZIP" button on the right side of this page. Ren
 
 Place the BricktronicsShield library folder into your <arduinosketchfolder>/libraries/ folder. You may need to create the libraries subfolder if this is your first installed library. Restart the Arduino IDE.
 
+This library depends on the following other Arduino libraries:
+* [Adafruit's MCP23017 I2C Port Expander Arduino Library](https://github.com/adafruit/Adafruit-MCP23017-Arduino-Library)
+
 _Wayne and Layne, LLC and our products are not connected to or endorsed by the LEGO Group. LEGO, Mindstorms, and NXT are trademarks of the LEGO Group._
 
