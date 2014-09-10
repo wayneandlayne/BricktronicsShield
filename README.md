@@ -1,7 +1,9 @@
 BricktronicsShield
 ==================
 
-Arduino library for the Bricktronics Shield
+**Arduino library for the Bricktronics Shield**
+
+More details at http://www.wayneandlayne.com/bricktronics/
 
 To download. click the "Download ZIP" button on the right side of this page. Rename the uncompressed folder BricktronicsShield. Check that the BricktronicsShield folder contains BricktronicsShield.cpp and BricktronicsShield.h
 
