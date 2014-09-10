@@ -1,0 +1,35 @@
+#######################################
+# Syntax Coloring Map For BricktronicsShield
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+BricktronicsShield	KEYWORD1
+
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+begin	KEYWORD2
+MOTOR_1	KEYWORD2
+MOTOR_1	KEYWORD2
+SENSOR_1	KEYWORD2
+SENSOR_2	KEYWORD2
+SENSOR_3	KEYWORD2
+SENSOR_4	KEYWORD2
+pinMode	KEYWORD2
+digitalWrite	KEYWORD2
+digitalRead	KEYWORD2
+
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+BS_PIN_MASK	LITERAL1
+BS_TIP_0	LITERAL1
+BS_TIP_1	LITERAL1
+
