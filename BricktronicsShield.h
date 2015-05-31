@@ -1,31 +1,31 @@
 /*
-    Bricktronics Library for Bricktronics Shield.
-    This library is only needed if you are using a Bricktronics Shield.
-    If you are using a break-out board or a motor driver board,
-    you can just directly use the motor and sensor libraries.
+   BricktronicsShield v1.2 - A software library for Bricktronics Shield.
+   This library is only needed if you are using a Bricktronics Shield.
+   If you are using a break-out board or a motor driver board,
+   you can just directly use the motor and sensor libraries.
 
-    Copyright (C) 2014 Adam Wolf, Matthew Beckler, John Baichtal
+   Copyright (C) 2015 Adam Wolf, Matthew Beckler, John Baichtal
 
-    This program is free software; you can redistribute it and/or
-    modify it under the terms of the GNU General Public License
-    as published by the Free Software Foundation; either version 2
-    of the License, or (at your option) any later version.
+   This program is free software; you can redistribute it and/or
+   modify it under the terms of the GNU General Public License
+   as published by the Free Software Foundation; either version 2
+   of the License, or (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software
+   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-    Wayne and Layne invests time and resources providing this open-source
-    code, please support W&L and open-source hardware by purchasing products
-    from https://store.wayneandlayne.com/ - Thanks!
+   Wayne and Layne invests time and resources providing this open-source
+   code, please support W&L and open-source hardware by purchasing products
+   from https://store.wayneandlayne.com/ - Thanks!
 
-    Wayne and Layne, LLC and our products are not connected to or endorsed by the LEGO Group.
-    LEGO, Mindstorms, and NXT are trademarks of the LEGO Group.
+   Wayne and Layne, LLC and our products are not connected to or endorsed by the LEGO Group.
+   LEGO, Mindstorms, and NXT are trademarks of the LEGO Group.
 */
 
 #ifndef BRICKTRONICSSHIELD_H
