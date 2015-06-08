@@ -1,7 +1,7 @@
 BricktronicsShield
 ==================
 
-**Arduino library for the Bricktronics Shield**
+**BricktronicsShield v1.2 - A software library for Arduino.*
 
 More details at http://www.wayneandlayne.com/bricktronics/
 
