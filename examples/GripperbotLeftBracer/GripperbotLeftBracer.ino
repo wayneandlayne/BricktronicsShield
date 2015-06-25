@@ -1,5 +1,5 @@
 #include <Wire.h>
-#include <ArduinoNunchuk.h> // While there are plenty of Nunchuk libraries, the one we used can be downloaded at http://www.gabrielbianconi.com/projects/arduinonunchuk/.
+#include <ArduinoNunchuk.h> // While there are plenty of Nunchuk libraries, the one we used can be downloaded at https://github.com/GabrielBianconi/ArduinoNunchuk
 
 // Make: LEGO and Arduino Projects
 // Chapter 7: GripperBot: Left Bracer
