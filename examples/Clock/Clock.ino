@@ -14,7 +14,7 @@
 #include <BricktronicsButton.h>
 
 // Include the Bricktronics Shield library and helper libraries
-// Requires the fruit MCP23017 library:
+// Requires the Adafruit MCP23017 library:
 //      https://github.com/adafruit/Adafruit-MCP23017-Arduino-Library
 #include <Wire.h>
 #include <Adafruit_MCP23017.h>
@@ -22,6 +22,7 @@
 
 // Also requires the Time library from:
 //      https://github.com/PaulStoffregen/Time
+//          Be sure to rename unzipped folder Time
 #include <Time.h>
 
 // The minimum number of milliseconds between calls to loop()

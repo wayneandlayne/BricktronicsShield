@@ -1,9 +1,24 @@
-#include <Wire.h>
-#include <Bricktronics.h> // These two lines let the Arduino sketch use the Bricktronics library code that simplifies working with motors and sensors.
-
 // Make: LEGO and Arduino Projects
 // Chapter 5: Chocolate Milk Maker
 // Website: http://www.wayneandlayne.com/bricktronics/
+
+// Include the Bricktronics motor and button libraries and helper libraries
+// Helper libraries can be downloaded from:
+//      https://www.pjrc.com/teensy/td_libs_Encoder.html
+//      https://github.com/br3ttb/Arduino-PID-Library/
+//          Be sure to rename unzipped folder PID_v1
+#include <Encoder.h>
+#include <PID_v1.h>
+#include <BricktronicsMotor.h>
+#include <BricktronicsButton.h>
+
+// Include the Bricktronics Shield library and helper librarires
+// Requries the Adafruit MCP23017 library:
+//      https://github.com/adafruit/Adafruit-MCP23017-Arduino-Library
+#include <Wire.h>
+#include <Adafruit_MCP23017.h>
+#include <Bricktronics.h>
+
 
 #define PUMP 13
 #define STIR 11
@@ -12,17 +27,18 @@
 #define PUMP_TIME 22000 // how long, in milliseconds, to wait for the pump to pump milk.
 #define STIR_TIME 20000 // how long, in milliseconds, to stir.
 
-Bricktronics brick = Bricktronics();
-PIDMotor syrup_arm = PIDMotor(&brick, 1); // The syrup_arm PIDMotor object corresponds to the stir arm motor plugged into Motor Port 1.
-PIDMotor stir_arm = PIDMotor(&brick, 2); // The stir_arm PIDMotor object corresponds to the syrup arm motor plugged into Motor Port 2.
-Button startstop = Button(&brick, 1); // The startstop Button object corresponds to the start/stop button in Sensor Port 1.
-Button endstop = Button(&brick, 2); // The endstop Button object corresponds to the endstop button in Sensor Port 2.
+// Create the motor and button objects
+BricktronicsMotor syrup_arm(BricktronicsShield::MOTOR_1); // The syrup_arm object corresponds to the stir arm motor plugged into Motor Port 1.
+BricktronicsMotor stir_arm(BricktronicsShield::MOTOR_2); // The stir_arm object corresponds to the syrup arm motor plugged into Motor Port 2.
+BricktronicsButton startstop(BricktronicsShield::SENSOR_1); // The startstop object corresponds to the start/stop button in Sensor Port 1.
+BricktronicsButton endstop(BricktronicsShield::SENSOR_2); // The endstop object corresponds to the endstop button in Sensor Port 2.
 
 void setup() // The setup() function is called only once right when the Arduino is powered on. It sets up the serial port, prints a startup message, and then initializes the hardware and the software.
 {
     Serial.begin(115200);
+    delay(10); // for serial port
     Serial.println("starting!");
-    brick.begin();
+    BricktronicsShield::begin();
     syrup_arm.begin();
     stir_arm.begin();
     startstop.begin();
@@ -70,7 +86,7 @@ void loop() // After setup() finishes, loop() runs over and over.
 
     wait_for_start_press_and_release();
 
-    if (endstop.is_pressed())
+    if (endstop.isPressed())
     {
         Serial.println("Error. Endstop is already pressed at start of run.");
         return;
@@ -86,11 +102,11 @@ void loop() // After setup() finishes, loop() runs over and over.
 void wait_for_start_press_and_release() // wait_for_start_press_and_release() just waits until the start button is pressed and then released. After that, it returns.
 {
     Serial.println("Waiting for start press.");
-    while (!startstop.is_pressed()) {
+    while (!startstop.isPressed()) {
         //wait for start to be pressed
     };
     delay(50); //debounce
-    while (startstop.is_pressed()) {
+    while (startstop.isPressed()) {
         //wait for start to be released
     };
     delay(50); //debounce
@@ -104,7 +120,7 @@ void pump_milk() // starts the pump, and waits for PUMP_TIME milliseconds to sto
 
     unsigned long end_time = millis() + PUMP_TIME;
     while (millis() < end_time) {
-        if (startstop.is_pressed())
+        if (startstop.isPressed())
         {
             Serial.println("Pump stopped due to button press.");
             break;
@@ -117,20 +133,18 @@ void pump_milk() // starts the pump, and waits for PUMP_TIME milliseconds to sto
 void dispense_syrup() // When dispense_syrup() starts, the system doesn’t know exactly where the syrup arm is, just that it’s vaguely upright. This function advances the arm until it hits the endstop, then it marks that as position 0. Then it pushes into the stop, repeatedly, to dispense syrup. It stops after SYRUP_WAIT milliseconds, at which point it slowly moves back to the upright position.
 {
     Serial.println("Advancing syrup arm until endstop.");
-    syrup_arm.set_speed(255);
-    while (!endstop.is_pressed()) { // Wait here until the endstop is pressed.
+    syrup_arm.setFixedDrive(255);
+    while (!endstop.isPressed()) { // Wait here until the endstop is pressed.
     };
-    syrup_arm.encoder->write(0); // This sets the current position of the motor to 0.
-    syrup_arm.stop();
+    syrup_arm.setPosition(0); // This sets the current position of the motor to 0.
+    syrup_arm.brake();
     Serial.println("Endstop pressed!");
     Serial.println("Waiting and dispensing syrup.");
 
     for (int i = 0; i < 40; i++) // At this point, the syrup container is pointed into the cup. To help the syrup drip out, we push the syrup container and then release it, 40 times. The length of each push is calculated so we are dripping for a total of SYRUP_WAIT milliseconds.
     {
-        syrup_arm.go_to_pos(-100);
-        Bricktronics::delay_update(SYRUP_WAIT/80, &syrup_arm, NULL); // This is a shortcut for a common idiom with the PIDMotor object. For example, Bricktronics::delay_update(1000, &motor); runs motor.update() for 1000 milliseconds before returning.
-        syrup_arm.go_to_pos(0);
-        Bricktronics::delay_update(SYRUP_WAIT/80, &syrup_arm, NULL);
+        syrup_arm.goToPositionWaitTimeout(-100, SYRUP_WAIT/80);
+        syrup_arm.goToPositionWaitTimeout(0, SYRUP_WAIT/80);
     }
 
     Serial.println("Retreating syrup arm!"); // This multistep movement of the arm is supposed to start slowly, then finish, to help prevent the syrup from flying out the end when the arm is pulled back.
@@ -150,7 +164,7 @@ void drop_stir_arm() // slowly drops the stir arm until it presses the endstop. 
     Serial.println("Advancing stir arm until endstop.");
     stir_arm.set_speed(-100);
 
-    while (!endstop.is_pressed()) {
+    while (!endstop.isPressed()) {
         // do nothing
     };
 
@@ -165,7 +179,7 @@ void stir_chocolate_milk() // stir_chocolate_milk() is very similar to pump_milk
     start_stir(255);
     unsigned long end_time = millis() + STIR_TIME;
     while (millis() < end_time) {
-        if (startstop.is_pressed())
+        if (startstop.isPressed())
         {
             Serial.println("Stir stopped due to button press.");
             break;
