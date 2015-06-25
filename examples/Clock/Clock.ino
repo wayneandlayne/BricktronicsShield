@@ -6,7 +6,7 @@
 // Helper libraries can be downloaded from:
 //      https://www.pjrc.com/teensy/td_libs_Encoder.html
 //      https://github.com/br3ttb/Arduino-PID-Library/
-// Be sure to rename unzipped folder PID_v1
+//          Be sure to rename unzipped folder PID_v1
 #include <Encoder.h>
 #include <PID_v1.h>
 #include <BricktronicsMotor.h>
@@ -21,7 +21,7 @@
 #include <BricktronicsShield.h>
 
 // Also requires the Time library from:
-//      http://playground.arduino.cc/Code/Time
+//      https://github.com/PaulStoffregen/Time
 #include <Time.h>
 
 // The minimum number of milliseconds between calls to loop()
