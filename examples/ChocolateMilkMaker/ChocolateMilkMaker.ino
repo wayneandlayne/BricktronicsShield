@@ -134,7 +134,9 @@ void dispense_syrup() // When dispense_syrup() starts, the system doesn’t know
 {
     Serial.println("Advancing syrup arm until endstop.");
     syrup_arm.setFixedDrive(255);
-    while (!endstop.isPressed()) { // Wait here until the endstop is pressed.
+    while (!endstop.isPressed())
+    {
+        // Wait here until the endstop is pressed.
     };
     syrup_arm.setPosition(0); // This sets the current position of the motor to 0.
     syrup_arm.brake();
@@ -143,33 +145,30 @@ void dispense_syrup() // When dispense_syrup() starts, the system doesn’t know
 
     for (int i = 0; i < 40; i++) // At this point, the syrup container is pointed into the cup. To help the syrup drip out, we push the syrup container and then release it, 40 times. The length of each push is calculated so we are dripping for a total of SYRUP_WAIT milliseconds.
     {
-        syrup_arm.goToPositionWaitTimeout(-100, SYRUP_WAIT/80);
-        syrup_arm.goToPositionWaitTimeout(0, SYRUP_WAIT/80);
+        syrup_arm.goToPositionWaitForDelay(-100, SYRUP_WAIT/80);
+        syrup_arm.goToPositionWaitForDelay(0, SYRUP_WAIT/80);
     }
 
     Serial.println("Retreating syrup arm!"); // This multistep movement of the arm is supposed to start slowly, then finish, to help prevent the syrup from flying out the end when the arm is pulled back.
-    syrup_arm.go_to_pos(20);
-    Bricktronics::delay_update(100, &syrup_arm, NULL);
-    syrup_arm.go_to_pos(50);
-    Bricktronics::delay_update(100, &syrup_arm, NULL);
-    syrup_arm.go_to_pos(225);
-    Bricktronics::delay_update(1000, &syrup_arm, NULL);
-    syrup_arm.go_to_pos(350);
-    Bricktronics::delay_update(1000, &syrup_arm, NULL);
-    syrup_arm.stop();
+    syrup_arm.goToPositionWaitForDelay(20, 100);
+    syrup_arm.goToPositionWaitForDelay(50, 100);
+    syrup_arm.goToPositionWaitForDelay(225, 1000);
+    syrup_arm.goToPositionWaitForDelay(350, 1000);
+    syrup_arm.brake();
 }
 
 void drop_stir_arm() // slowly drops the stir arm until it presses the endstop. Then it marks that position at zero.
 {
     Serial.println("Advancing stir arm until endstop.");
-    stir_arm.set_speed(-100);
+    stir_arm.setFixedDrive(-100);
 
-    while (!endstop.isPressed()) {
+    while (!endstop.isPressed())
+    {
         // do nothing
     };
 
-    stir_arm.encoder->write(0);
-    stir_arm.stop();
+    stir_arm.setPosition(0);
+    stir_arm.brake();
     Serial.println("Endstop pressed!");
 }
 
@@ -178,7 +177,8 @@ void stir_chocolate_milk() // stir_chocolate_milk() is very similar to pump_milk
     Serial.println("Starting to stir");
     start_stir(255);
     unsigned long end_time = millis() + STIR_TIME;
-    while (millis() < end_time) {
+    while (millis() < end_time)
+    {
         if (startstop.isPressed())
         {
             Serial.println("Stir stopped due to button press.");
@@ -193,19 +193,14 @@ void raise_stir_arm() // raise_stir_arm() tries to prevent a mess. It does this 
 {
     Serial.println("Retreating stir arm!");
 
-    stir_arm.go_to_pos(-35);
-    Bricktronics::delay_update(1000, &stir_arm, NULL);
-    stir_arm.go_to_pos(-60);
-    Bricktronics::delay_update(2000, &stir_arm, NULL);
-    stir_arm.go_to_pos(-100);
+    stir_arm.goToPositionWaitForDelay(-35, 1000);
+    stir_arm.goToPositionWaitForDelay(-60, 2000);
     start_stir(85);
-    Bricktronics::delay_update(2000, &stir_arm, NULL);
+    stir_arm.goToPositionWaitForDelay(-100, 2000);
     stop_stir();
 
-    stir_arm.go_to_pos(-110);
-    Bricktronics::delay_update(2000, &stir_arm, NULL);
-    stir_arm.go_to_pos(-250);
-    Bricktronics::delay_update(1000, &stir_arm, NULL);
-    stir_arm.stop();
+    stir_arm.goToPositionWaitForDelay(-110, 2000);
+    stir_arm.goToPositionWaitForDelay(-250, 1000);
+    stir_arm.brake();
 }
 
