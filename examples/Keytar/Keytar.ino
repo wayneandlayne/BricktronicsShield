@@ -1,14 +1,30 @@
-#include <Wire.h>
-#include <Bricktronics.h>
-
 // Make: LEGO and Arduino Projects
 // Chapter 8: Keytar
 // Website: http://www.wayneandlayne.com/bricktronics/
 
-Bricktronics brick = Bricktronics();
-Motor tone_knob = Motor(&brick, 1);
-Motor duration_knob = Motor(&brick, 2);
-Button mute_button = Button(&brick, 1);
+// Include the Bricktronics motor library and helper libraries
+// Helper libraries can be downloaded from:
+//      https://www.pjrc.com/teensy/td_libs_Encoder.html
+//      https://github.com/br3ttb/Arduino-PID-Library/
+//          Be sure to rename unzipped folder PID_v1
+#include <Encoder.h>
+#include <PID_v1.h>
+#include <BricktronicsMotor.h>
+// Include the Bricktronics button library
+#include <BricktronicsButton.h>
+
+// Include the Bricktronics Shield library and helper libraries
+// Requires the Adafruit MCP23017 library:
+//      https://github.com/adafruit/Adafruit-MCP23017-Arduino-Library
+#include <Wire.h>
+#include <Adafruit_MCP23017.h>
+#include <BricktronicsShield.h>
+
+
+// Create the motor and button objects
+BricktronicsMotor tone_knob(BricktronicsShield::MOTOR_1);
+BricktronicsMotor duration_knob(BricktronicsShield::MOTOR_2);
+BricktronicsButton mute_button(BricktronicsShield::SENSOR_1);
 
 #define SPEAKER 11 // These defines set up labels for the pins used in this sketch.
 #define TONE_SLOT_0 6
@@ -40,7 +56,7 @@ void setup() // The setup() function is called only once—right after the Ardui
 {
     Serial.begin(115200); // We use the USB serial port for debugging our Arduino code. It allows us to send information from the Arduino to the computer.
     Serial.println("starting!");
-    brick.begin();
+    BricktronicsShield::begin();
     tone_knob.begin();
     duration_knob.begin();
     mute_button.begin();
@@ -50,7 +66,7 @@ void setup() // The setup() function is called only once—right after the Ardui
         pinMode (slot_button[i], INPUT_PULLUP);
     }
 
-    while (!mute_button.is_pressed()) {
+    while (!mute_button.isPressed()) {
         //do nothing
     } // This while loop stops the program from proceeding at startup until the mute button is pressed.
 }
@@ -61,7 +77,7 @@ void loop() // The loop() function runs over and over until you remove power fro
     Serial.println(current_slot);
     int current_frequency = slot_frequency[current_slot]; // current_frequency is set to the integer stored in the current_slot index of the array slot_frequency.
 
-    if (!mute_button.is_pressed())
+    if (!mute_button.isPressed())
     {
         tone(SPEAKER, current_frequency); // This starts a tone on pin SPEAKER with frequency current_frequency.
     }
@@ -89,8 +105,8 @@ void watch_for_input(long ms, char slot, boolean in_slot, boolean is_playing)
 {
     long start_time = millis();
     long end_time = start_time + ms;
-    tone_knob.encoder->write(0); // By writing a zero to the encoder object, it is easy to see later if the motors have moved. If a later call to read doesn’t return 0, they’ve moved!
-    duration_knob.encoder->write(0);
+    tone_knob.setPosition(0); // By writing a zero to the position, it is easy to see later if the motors have moved. If a later call to read doesn’t return 0, they’ve moved!
+    duration_knob.setPosition(0);
     Serial.print("In slot: ");
     Serial.println(in_slot, DEC);
     while (millis() < end_time) // This while loop keeps checking for input until the current time is the end_time.
@@ -108,7 +124,7 @@ void watch_for_input(long ms, char slot, boolean in_slot, boolean is_playing)
             }
         }
 
-        long duration_change = duration_knob.encoder->read();
+        long duration_change = duration_knob.getPosition();
 
         if (duration_change != 0)
         {
@@ -125,21 +141,23 @@ void watch_for_input(long ms, char slot, boolean in_slot, boolean is_playing)
                 rest_duration = max(rest_duration, 0);
             }
             end_time = millis(); // This statement makes the function exit at the end of this iteration of the while loop. If the knobs are spinning, this means they’ll likely still be spinning a bit at the next slot, which makes an awesome retro arcadestyle chunky sound.
-            duration_knob.encoder->write(0); // Now that we’ve handled the duration knob, we set it to 0.
+            duration_knob.setPosition(0); // Now that we’ve handled the duration knob, we set it to 0.
         }
 
-        if (tone_knob.encoder->read() != 0)
+        long tone_change = tone_knob.getPosition();
+
+        if (tone_change != 0)
         {
             Serial.print("Tone knob: ");
-            Serial.println(tone_knob.encoder->read(), DEC);
+            Serial.println(tone_change, DEC);
 
-            slot_frequency[slot] += (tone_knob.encoder->read());
+            slot_frequency[slot] += tone_change;
             slot_frequency[slot] = max(MIN_FREQUENCY, slot_frequency[slot]);
-            if (is_playing && !mute_button.is_pressed())
+            if (is_playing && !mute_button.isPressed())
             {
                 tone(SPEAKER, slot_frequency[slot]);
             }
-            tone_knob.encoder->write(0);
+            tone_knob.setPosition(0);
         }
     }
 }

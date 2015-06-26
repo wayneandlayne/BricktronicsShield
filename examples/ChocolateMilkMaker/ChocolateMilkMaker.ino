@@ -2,7 +2,7 @@
 // Chapter 5: Chocolate Milk Maker
 // Website: http://www.wayneandlayne.com/bricktronics/
 
-// Include the Bricktronics motor and button libraries and helper libraries
+// Include the Bricktronics motor library and helper libraries
 // Helper libraries can be downloaded from:
 //      https://www.pjrc.com/teensy/td_libs_Encoder.html
 //      https://github.com/br3ttb/Arduino-PID-Library/
@@ -10,6 +10,7 @@
 #include <Encoder.h>
 #include <PID_v1.h>
 #include <BricktronicsMotor.h>
+// Include the Bricktronics button library
 #include <BricktronicsButton.h>
 
 // Include the Bricktronics Shield library and helper librarires
@@ -17,9 +18,10 @@
 //      https://github.com/adafruit/Adafruit-MCP23017-Arduino-Library
 #include <Wire.h>
 #include <Adafruit_MCP23017.h>
-#include <Bricktronics.h>
+#include <BricktronicsShield.h>
 
 
+// Pin numbers for the pump and stir motors
 #define PUMP 13
 #define STIR 11
 

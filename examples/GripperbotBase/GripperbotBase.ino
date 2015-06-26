@@ -1,18 +1,32 @@
-#include <Wire.h>
-#include <Bricktronics.h>
-
 // Getting started with Lego and Arduino
 // Chapter 7: GripperBot: Tank Base
 // Website: http://www.wayneandlayne.com/bricktronics
 
-Bricktronics brick = Bricktronics();
-Motor r = Motor(&brick, 1);
-Motor l = Motor(&brick, 2);
+// Include the Bricktronics motor library and helper libraries
+// Helper libraries can be downloaded from:
+//      https://www.pjrc.com/teensy/td_libs_Encoder.html
+//      https://github.com/br3ttb/Arduino-PID-Library/
+//          Be sure to rename unzipped folder PID_v1
+#include <Encoder.h>
+#include <PID_v1.h>
+#include <BricktronicsMotor.h>
+
+// Include the Bricktronics Shield library and helper libraries
+// Requires the Adafruit MCP23017 library:
+//      https://github.com/adafruit/Adafruit-MCP23017-Arduino-Library
+#include <Wire.h>
+#include <Adafruit_MCP23017.h>
+#include <BricktronicsShield.h>
+
+
+// Create the motor objects
+BricktronicsMotor r(BricktronicsShield::MOTOR_1);
+BricktronicsMotor l(BricktronicsShield::MOTOR_2);
 
 void setup() // The setup() function runs once at startup.
 {
     Serial.begin(9600);
-    brick.begin();
+    BricktronicsShield::begin();
     r.begin();
     l.begin();
 }
@@ -25,12 +39,12 @@ void process_incoming_command(char cmd, char arg0) // takes in the two bytes of 
         case '6':
         case 6: // If the command was "set the speed to motor 6 (left tank tread)," then the code that follows is run.
             speed = arg0*2;
-            l.set_speed(speed);
+            l.setFixedDrive(speed);
             break;
         case '7':
         case 7: // If the command was "set the speed to motor 7 (right tank tread)," the code that follows is run.
             speed = arg0*2;
-            r.set_speed(speed);
+            r.setFixedDrive(speed);
             break;
         default:
             break;

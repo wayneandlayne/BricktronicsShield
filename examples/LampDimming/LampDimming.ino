@@ -1,8 +1,3 @@
-#include <Wire.h>
-#include <Bricktronics.h>
-#include <SoftwareSerial.h>
-#include <TimerOne.h> // TimerOne is an Arduino library, and can be downloaded at http://www.arduino.cc/playground/Code/Timer1
-
 // Make: LEGO and Arduino Projects
 // Chapter 9: Lamp
 // Website: http://www.wayneandlayne.com/bricktronics/
@@ -11,9 +6,31 @@
 // and
 // AC Light Control by Ryan McLaughlin.
 
-Bricktronics brick = Bricktronics();
-PIDMotor m = PIDMotor(&brick, 1); // Plug a motor into Motor Port 1.
-Button lamp_switch = Button(&brick, 1); // Plug a button into Sensor Port 1.
+// Include the Bricktronics motor library and helper libraries
+// Helper libraries can be downloaded from:
+//      https://www.pjrc.com/teensy/td_libs_Encoder.html
+//      https://github.com/br3ttb/Arduino-PID-Library/
+//          Be sure to rename unzipped folder PID_v1
+#include <Encoder.h>
+#include <PID_v1.h>
+#include <BricktronicsMotor.h>
+// Include the Bricktronics button library
+#include <BricktronicsButton.h>
+
+// Include the Bricktronics Shield library and helper libraries
+// Requires the Adafruit MCP23017 library:
+//      https://github.com/adafruit/Adafruit-MCP23017-Arduino-Library
+#include <Wire.h>
+#include <Adafruit_MCP23017.h>
+#include <BricktronicsShield.h>
+
+#include <SoftwareSerial.h>
+#include <TimerOne.h> // TimerOne is an Arduino library, and can be downloaded at https://github.com/PaulStoffregen/TimerOne
+
+
+// Create the motor and button objects
+BricktronicsMotor m(BricktronicsShield::MOTOR_1); // Plug a motor into Motor Port 1.
+BricktronicsButton lamp_switch(BricktronicsShield::SENSOR_1); // Plug a button into Sensor Port 1.
 
 #define RxD 6 // Connect the jumpers on the Bluetooth Shield so RX is connected to pin 6.
 #define TxD 7 // Connect the jumpers on the Bluetooth Shield so TX is connected to pin 7.
@@ -36,13 +53,12 @@ void setup() // setup() runs once at startup.
 {
     Serial.begin(9600);
     setupBluetoothConnection();
-    brick.begin();
+    BricktronicsShield::begin();
     m.begin();
     lamp_switch.begin();
 
-    m.mKP = 1; // This changes the KP, KD, and KI tuning numbers on the PID for the motor object m.
-    m.mKD = 1;
-    m.mKI = 0.003;
+    // This changes the KP, KD, and KI tuning numbers on the PID for the motor object m.
+    m.pidSetTunings(1.0, 0.003, 1.0);
 
     pinMode(AC_pin, OUTPUT);
     attachInterrupt(1, zero_cross_detect, FALLING); // Every time the signal on pin 3 goes from high to low, run the function zero_cross_detect.
@@ -83,7 +99,7 @@ void loop() // loop() runs over and over.
                 Serial.println("Setting dimness:");
                 dim = recvChar;
                 destination_updates = 20; // The next 20 times loop() is run, try to get the motor in the dimmer knob close to the destination.
-                m.go_to_pos(dim*4); // Set the motor's destination to the dimness value sent times 0 to 99 on the knob is not very far -- 0 to 396 is much better.
+                m.goToPosition(dim*4); // Set the motor's destination to the dimness value sent times 0 to 99 on the knob is not very far -- 0 to 396 is much better.
             }
         }
     }
@@ -95,10 +111,10 @@ void loop() // loop() runs over and over.
         destination_updates -= 1;
     } else
     {
-        m.stop(); // Make sure the motor stops after it's tried to get to its destination.
+        m.brake(); // Make sure the motor stops after it's tried to get to its destination.
     }
 
-    long current_encoder_reading = m.encoder->read();
+    long current_encoder_reading = m.getPosition();
 
     if (current_encoder_reading != last_encoder_reading) // If the knob has turned since the last run through loop(), then update
     {
@@ -110,11 +126,11 @@ void loop() // loop() runs over and over.
         last_encoder_reading = current_encoder_reading;
     }
 
-    if (! lamp_switch.is_pressed())
+    if (!lamp_switch.isPressed())
     {
         last_released = millis();
     }
-    else if (lamp_switch.is_pressed() && last_released > 0
+    else if (lamp_switch.isPressed() && last_released > 0
              && last_released - millis() > 50) // If the lamp switch is pressed, and it isn't the first time it was pressed, and the last time it was let go was at least 50 milliseconds ago, this means we want to toggle the light status!
     {
         Serial.println("pressed"); // Update the Arduino Serial Monitor with debug information.

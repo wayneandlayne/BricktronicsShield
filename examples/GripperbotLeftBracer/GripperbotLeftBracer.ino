@@ -1,10 +1,11 @@
-#include <Wire.h>
-#include <ArduinoNunchuk.h> // While there are plenty of Nunchuk libraries, the one we used can be downloaded at https://github.com/GabrielBianconi/ArduinoNunchuk
-
 // Make: LEGO and Arduino Projects
 // Chapter 7: GripperBot: Left Bracer
 // In the default configuration, the left bracer controls the left tank tread. When the Nunchuk is tilted forward, the left tank tread goes forward. When the Nunchuk is tilted back, the left tank tread goes backward.
 // Website: http://www.wayneandlayne.com/bricktronics/
+
+#include <Wire.h>
+#include <ArduinoNunchuk.h> // While there are plenty of Nunchuk libraries, the one we used can be downloaded at https://github.com/GabrielBianconi/ArduinoNunchuk
+
 
 ArduinoNunchuk nunchuk = ArduinoNunchuk();
 

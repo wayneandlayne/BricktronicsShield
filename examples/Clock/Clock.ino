@@ -2,7 +2,7 @@
 // Chapter 4: Clock
 // Website: http://www.wayneandlayne.com/bricktronics/
 
-// Include the Bricktronics Motor library and helper libraries
+// Include the Bricktronics motor library and helper libraries
 // Helper libraries can be downloaded from:
 //      https://www.pjrc.com/teensy/td_libs_Encoder.html
 //      https://github.com/br3ttb/Arduino-PID-Library/
@@ -10,7 +10,7 @@
 #include <Encoder.h>
 #include <PID_v1.h>
 #include <BricktronicsMotor.h>
-// Include the Bricktronics Button libraries
+// Include the Bricktronics button library
 #include <BricktronicsButton.h>
 
 // Include the Bricktronics Shield library and helper libraries
@@ -24,6 +24,7 @@
 //      https://github.com/PaulStoffregen/Time
 //          Be sure to rename unzipped folder Time
 #include <Time.h>
+
 
 // The minimum number of milliseconds between calls to loop()
 #define TIME_STEP 100
