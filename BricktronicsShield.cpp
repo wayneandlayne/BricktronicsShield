@@ -37,6 +37,7 @@ const BricktronicsMotorSettings BricktronicsShield::MOTOR_1 = {
     10, // pwmPin
     2,  // encoderPin1
     5,  // encoderPin2
+    true, // reversedMotorDrive
     &BricktronicsShield::pinMode,
     &BricktronicsShield::digitalWrite,
     &BricktronicsShield::digitalRead,
@@ -48,6 +49,7 @@ const BricktronicsMotorSettings BricktronicsShield::MOTOR_2 = {
     9,  // pwmPin
     3,  // encoderPin1
     4,  // encoderPin2
+    true, // reversedMotorDrive
     &BricktronicsShield::pinMode,
     &BricktronicsShield::digitalWrite,
     &BricktronicsShield::digitalRead,
