@@ -1,6 +1,13 @@
 // Make: LEGO and Arduino Projects
 // Chapter 9: Lamp
 // Website: http://www.wayneandlayne.com/bricktronics/
+//
+// Written in 2015 by Matthew Beckler and Adam Wolf for Wayne and Layne, LLC
+// To the extent possible under law, the author(s) have dedicated all
+//   copyright and related and neighboring rights to this software to the
+//   public domain worldwide. This software is distributed without any warranty.
+// You should have received a copy of the CC0 Public Domain Dedication along
+//   with this software. If not, see <http://creativecommons.org/publicdomain/zero/1.0/>. 
 
 // Based on BluetoothShield Demo Code PDE by Steve Chang at Seeed Technology, Inc.
 // and
