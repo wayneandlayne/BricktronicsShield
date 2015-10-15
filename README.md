@@ -14,6 +14,11 @@ Place the BricktronicsShield library folder into your `<arduinosketchfolder>/lib
 **This library depends on the following other Arduino libraries:**
 * [Adafruit's MCP23017 I2C Port Expander Arduino Library](https://github.com/adafruit/Adafruit-MCP23017-Arduino-Library)
 
+**API Highlights**
+* `BricktronicsMotorSettings::MOTOR_1` - Use this static const struct in your motor constructors. `MOTOR_1` through `MOTOR_2` are defined.
+* `BricktronicsMotorSettings::SENSOR_1` - Use this static const struct in your sensor constructors. `SENSOR_1` through `SENSOR_4` are defined.
+* More API details in [API.md](API.md)
+
 **Supported motor and sensor libraries you may be interested in:**
 * [BricktronicsMotor](https://github.com/wayneandlayne/BricktronicsMotor) – Support for NXT 2.0 and EV3 servomotors
 * [BricktronicsLight](https://github.com/wayneandlayne/BricktronicsLight) – Support for monochrome light sensor
