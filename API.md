@@ -49,13 +49,13 @@ void loop()
 
 # Motor settings
 
-#### `BricktronicsMotorSettings::MOTOR_1`
-#### `BricktronicsMotorSettings::MOTOR_2`
+#### `BricktronicsShield::MOTOR_1`
+#### `BricktronicsShield::MOTOR_2`
 
 # Sensor settings
 
-#### `BricktronicsSensorSettings::SENSOR_1`
-#### `BricktronicsSensorSettings::SENSOR_2`
-#### `BricktronicsSensorSettings::SENSOR_3`
-#### `BricktronicsSensorSettings::SENSOR_4`
+#### `BricktronicsShield::SENSOR_1`
+#### `BricktronicsShield::SENSOR_2`
+#### `BricktronicsShield::SENSOR_3`
+#### `BricktronicsShield::SENSOR_4`
 
