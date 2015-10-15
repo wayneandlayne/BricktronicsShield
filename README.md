@@ -3,6 +3,8 @@ BricktronicsShield
 
 **BricktronicsShield v1.2 - A software library for Arduino.**
 
+This meta-library provides easy interfacing to the [Bricktronics Shield](https://store.wayneandlayne.com/products/bricktronics-shield-kit.html). This library does not contain any functional code for motors or sensors, rather it provides static mappings between motor and sensor ports on the Shield, and the pin numbers needed by the motor and sensor libraries. It packages the pin settings into two structs defined in [BricktronicsSettings.h](utility/BricktronicsSettings.h), which are defined as static const objects in the BricktronicsMegashield class. Use these objects in your motor and sensor constructors. Since the Bricktronics Shield uses an I/O expander chip to add additional pins, this library does contain the code needed to interface with that chip, and provide a way for the motor and sensor libraries to transparently talk to that chip.
+
 More details at http://www.wayneandlayne.com/bricktronics/
 
 To download. click the "Download ZIP" button on the right side of this page. Rename the uncompressed folder BricktronicsShield. Check that the BricktronicsShield folder contains BricktronicsShield.cpp and BricktronicsShield.h
