@@ -58,7 +58,7 @@ const BricktronicsMotorSettings BricktronicsShield::MOTOR_2 = {
 
 // Sensor settings
 const BricktronicsSensorSettings BricktronicsShield::SENSOR_1 = {
-    14, // ANA
+    A0, // ANA
     70, // DA
     69, // DB
     &BricktronicsShield::pinMode,
@@ -67,7 +67,7 @@ const BricktronicsSensorSettings BricktronicsShield::SENSOR_1 = {
 };
 
 const BricktronicsSensorSettings BricktronicsShield::SENSOR_2 = {
-    15, // ANA
+    A1, // ANA
     68, // DA
     67, // DB
     &BricktronicsShield::pinMode,
@@ -76,7 +76,7 @@ const BricktronicsSensorSettings BricktronicsShield::SENSOR_2 = {
 };
 
 const BricktronicsSensorSettings BricktronicsShield::SENSOR_3 = {
-    16, // ANA
+    A2, // ANA
     8,  // DA
     12, // DB
     &BricktronicsShield::pinMode,
@@ -85,7 +85,7 @@ const BricktronicsSensorSettings BricktronicsShield::SENSOR_3 = {
 };
 
 const BricktronicsSensorSettings BricktronicsShield::SENSOR_4 = {
-    17, // ANA
+    A3, // ANA
     7,  // DA
     6,  // DB
     &BricktronicsShield::pinMode,
@@ -100,7 +100,7 @@ void BricktronicsShield::begin()
 {
     Wire.begin();
     _mcp.begin();
-    // Set timer1 frequency to about 32 kHz to reduce audible whine
+    // Set timer1 frequency to about 32 kHz to reduce audible whine with PWM
     TCCR1B = (TCCR1B & 0b11111000) | 0x01;
 }
 
@@ -157,11 +157,11 @@ int BricktronicsShield::digitalRead(uint8_t pin)
 {
     if (pin < 64)
     {
-        return ::digitalRead(pin);
+        return( ::digitalRead(pin) );
     }
     else
     {
-        return _mcp.digitalRead(pin & BS_PIN_MASK);
+        return( _mcp.digitalRead(pin & BS_PIN_MASK) );
     }
 }
 
