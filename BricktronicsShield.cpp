@@ -100,8 +100,10 @@ void BricktronicsShield::begin()
 {
     Wire.begin();
     _mcp.begin();
+#if defined(__AVR_ATmega328P__) || defined(__AVR_ATmega168__) || defined(__AVR_ATmega8__)
     // Set timer1 frequency to about 32 kHz to reduce audible whine with PWM
     TCCR1B = (TCCR1B & 0b11111000) | 0x01;
+#endif
 }
 
 void BricktronicsShield::pinMode(uint8_t pin, uint8_t mode)
