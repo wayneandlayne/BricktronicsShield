@@ -104,6 +104,7 @@ void BricktronicsShield::begin()
     // Set timer1 frequency to about 32 kHz to reduce audible whine with PWM
     TCCR1B = (TCCR1B & 0b11111000) | 0x01;
 #endif
+// TODO - Do the same thing for Mega2560 if we want
 }
 
 void BricktronicsShield::pinMode(uint8_t pin, uint8_t mode)
