@@ -72,3 +72,10 @@ Write a HIGH or a LOW value to a digital pin. If `pin` is 64 or greater, write t
 #### `static void BricktronicsShield::digitalRead(uint8_t pin)`
 
 Reads the value from a specified digital pin. If `pin` is 64 or greater, read from pin `(pin - 64)` on MCP23017 chip, otherwise call the default [Arduino digitalRead function](https://www.arduino.cc/en/Reference/DigitalRead). Returns either `HIGH` or `LOW`.
+
+# Enumerations and constants
+
+#### TIP-120 pin constants
+
+* `BS_TIP_0` - Drives the TIP-120 connected to header EXT1
+* `BS_TIP_1` - Drives the TIP-120 connected to header EXT2
