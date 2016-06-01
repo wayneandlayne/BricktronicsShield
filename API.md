@@ -59,3 +59,16 @@ void loop()
 #### `BricktronicsShield::SENSOR_3`
 #### `BricktronicsShield::SENSOR_4`
 
+# Interface to MCP23017 I/O Expander Chip
+
+#### `static void BricktronicsShield::pinMode(uint8_t pin, uint8_t mode)`
+
+Configures the specified pin to behave either as an input or an output pin. If `pin` is 64 or greater, configure pin `(pin - 64)` on MCP23017 chip, otherwise call the default [Arduino pinMode function](https://www.arduino.cc/en/Reference/PinMode). Valid options for `mode` are `INPUT`, `OUTPUT`, or `INPUT_PULLUP`.
+
+#### `static void BricktronicsShield::digitalWrite(uint8_t pin, uint8_t level)`
+
+Write a HIGH or a LOW value to a digital pin. If `pin` is 64 or greater, write to pin `(pin - 64)` on MCP23017 chip, otherwise call the default [Arduino digitalWrite function](https://www.arduino.cc/en/Reference/DigitalWrite). Valid options for `level` are `HIGH` or `LOW`.
+
+#### `static void BricktronicsShield::digitalRead(uint8_t pin)`
+
+Reads the value from a specified digital pin. If `pin` is 64 or greater, read from pin `(pin - 64)` on MCP23017 chip, otherwise call the default [Arduino digitalRead function](https://www.arduino.cc/en/Reference/DigitalRead). Returns either `HIGH` or `LOW`.
