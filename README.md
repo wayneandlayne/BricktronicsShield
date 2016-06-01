@@ -27,8 +27,5 @@ Place the BricktronicsShield library folder into your `<arduinosketchfolder>/lib
 * [BricktronicsButton](https://github.com/wayneandlayne/BricktronicsButton) – Support for pushbutton sensors
 * [BricktronicsUltrasonic](https://github.com/wayneandlayne/BricktronicsUltrasonic) – Support for the NXT 2.0 ultrasonic sensor
 
-**If you want to automatically verify all configurations of the library example sketches, you need to download the W&L VerifySketchConfig library so that the symbolic link works:**
-* [VerifySketchConfig](https://github.com/wayneandlayne/VerifySketchConfig/)
-
 _Wayne and Layne, LLC and our products are not connected to or endorsed by the LEGO Group. LEGO, Mindstorms, and NXT are trademarks of the LEGO Group._
 
