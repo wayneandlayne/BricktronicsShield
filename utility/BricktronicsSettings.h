@@ -5,7 +5,7 @@
    from the BricktronicsShield / BricktronicsMegashield class to
    the motor and sensor class constructors.
 
-   Copyright (C) 2015 Adam Wolf, Matthew Beckler, John Baichtal
+   Copyright (C) 2016 Adam Wolf, Matthew Beckler, John Baichtal
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
