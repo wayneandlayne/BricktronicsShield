@@ -2,35 +2,18 @@
 // Chapter 4: Clock
 // Website: http://www.wayneandlayne.com/bricktronics/
 //
-// Written in 2015 by Matthew Beckler and Adam Wolf for Wayne and Layne, LLC
+// Written in 2016 by Matthew Beckler and Adam Wolf for Wayne and Layne, LLC
 // To the extent possible under law, the author(s) have dedicated all
 //   copyright and related and neighboring rights to this software to the
 //   public domain worldwide. This software is distributed without any warranty.
 // You should have received a copy of the CC0 Public Domain Dedication along
 //   with this software. If not, see <http://creativecommons.org/publicdomain/zero/1.0/>. 
 
-// Include the Bricktronics motor library and helper libraries
-// Helper libraries can be downloaded from:
-//      https://www.pjrc.com/teensy/td_libs_Encoder.html
-//      https://github.com/br3ttb/Arduino-PID-Library/
-//          Be sure to rename unzipped folder PID_v1
-#include <Encoder.h>
-#include <PID_v1.h>
-#include <BricktronicsMotor.h>
-// Include the Bricktronics button library
-#include <BricktronicsButton.h>
-
-// Include the Bricktronics Shield library and helper libraries
-// Requires the Adafruit MCP23017 library:
-//      https://github.com/adafruit/Adafruit-MCP23017-Arduino-Library
-#include <Wire.h>
-#include <Adafruit_MCP23017.h>
+// Include the Bricktronics libraries and helper libraries
 #include <BricktronicsShield.h>
-
-// Also requires the Time library from:
-//      https://github.com/PaulStoffregen/Time
-//          Be sure to rename unzipped folder Time
-#include <Time.h>
+#include <BricktronicsButton.h>
+#include <BricktronicsMotor.h>
+#include "Time.h"
 
 
 // The minimum number of milliseconds between calls to loop()

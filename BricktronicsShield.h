@@ -4,7 +4,7 @@
    If you are using a break-out board or a motor driver board,
    you can just directly use the motor and sensor libraries.
 
-   Copyright (C) 2015 Adam Wolf, Matthew Beckler, John Baichtal
+   Copyright (C) 2016 Adam Wolf, Matthew Beckler, John Baichtal
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
@@ -39,7 +39,7 @@
 #include "WProgram.h"
 #endif
 #include <Wire.h>
-#include <Adafruit_MCP23017.h>
+#include "utility/Adafruit_MCP23017.h"
 #include "utility/BricktronicsSettings.h"
 
 // Pins above 64 are assigned to the IO expander pins.

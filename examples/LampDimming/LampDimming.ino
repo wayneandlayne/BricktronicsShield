@@ -2,7 +2,7 @@
 // Chapter 9: Lamp
 // Website: http://www.wayneandlayne.com/bricktronics/
 //
-// Written in 2015 by Matthew Beckler and Adam Wolf for Wayne and Layne, LLC
+// Written in 2016 by Matthew Beckler and Adam Wolf for Wayne and Layne, LLC
 // To the extent possible under law, the author(s) have dedicated all
 //   copyright and related and neighboring rights to this software to the
 //   public domain worldwide. This software is distributed without any warranty.
@@ -13,26 +13,13 @@
 // and
 // AC Light Control by Ryan McLaughlin.
 
-// Include the Bricktronics motor library and helper libraries
-// Helper libraries can be downloaded from:
-//      https://www.pjrc.com/teensy/td_libs_Encoder.html
-//      https://github.com/br3ttb/Arduino-PID-Library/
-//          Be sure to rename unzipped folder PID_v1
-#include <Encoder.h>
-#include <PID_v1.h>
-#include <BricktronicsMotor.h>
-// Include the Bricktronics button library
-#include <BricktronicsButton.h>
-
-// Include the Bricktronics Shield library and helper libraries
-// Requires the Adafruit MCP23017 library:
-//      https://github.com/adafruit/Adafruit-MCP23017-Arduino-Library
-#include <Wire.h>
-#include <Adafruit_MCP23017.h>
+// Include the Bricktronics libraries
 #include <BricktronicsShield.h>
+#include <BricktronicsButton.h>
+#include <BricktronicsMotor.h>
 
 #include <SoftwareSerial.h>
-#include <TimerOne.h> // TimerOne is an Arduino library, and can be downloaded at https://github.com/PaulStoffregen/TimerOne
+#include "TimerOne.h" // TimerOne is an Arduino library from https://github.com/PaulStoffregen/TimerOne
 
 
 // Create the motor and button objects

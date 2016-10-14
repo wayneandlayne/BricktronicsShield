@@ -4,7 +4,7 @@
    If you are using a break-out board or a motor driver board,
    you can just directly use the motor and sensor libraries.
 
-   Copyright (C) 2015 Adam Wolf, Matthew Beckler, John Baichtal
+   Copyright (C) 2016 Adam Wolf, Matthew Beckler, John Baichtal
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License
