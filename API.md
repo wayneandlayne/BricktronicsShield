@@ -16,8 +16,6 @@ This meta-library provides easy interfacing to the [Bricktronics Shield](https:/
 Use the BricktronicsShied library to provide details on the pin connections for a pushbutton sensor to any sensor port on the Bricktronics Shield. If the chosen sensor port has jumpers, use them to connect pins 2-3 and 4-5.
 
 ```C++
-#include <Wire.h>
-#include <Adafruit_MCP23017.h>
 #include <BricktronicsShield.h>
 #include <BricktronicsButton.h>
 
